@@ -17,8 +17,7 @@ for ($i = 0; $i < count($arr); $i++) {
 
         if ($char == "," || $char == "." || $char == "'") {
             for ($k = $j + 1; $k < strlen($string); $k++) {
-                echo $arr[$i][$k];
-                $arr[$i][$k - 1] = $arr[$i][$k];
+              $arr[$i][$k - 1] = $arr[$i][$k];
             }
             $arr[$i] = substr($arr[$i], 0, -1);
         }
