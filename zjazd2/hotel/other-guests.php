@@ -47,15 +47,16 @@ function validate_data()
 
 $success = validate_data();
 
-if ($success || $_POST["count"] == "1") {
-    header("Location: ./display.php");
-    exit();
-}
+// if ($success || $_POST["count"] == "1") {
+//     header("Location: ./display.php");
+//     exit();
+// }
 ?>
 <!DOCTYPE html>
 <html>
 
-<head></head>
+<head>
+</head>
 
 <body>
     <form action="./display.php" method="post">
@@ -66,22 +67,29 @@ if ($success || $_POST["count"] == "1") {
         <input type="hidden" name="card-id" value="<?php echo $_POST["card-id"] ?>" />
         <input type="hidden" name="email" value="<?php echo $_POST["email"] ?>" />
         <input type="hidden" name="date" value="<?php echo $_POST["date"] ?>" />
-        <input type="hidden" name="date" value="<?php echo $_POST["child-bed"] ?>" />
-        <input type="hidden" name="date" value="<?php echo $_POST["balcony"] ?>" />
-        <input type="hidden" name="date" value="<?php echo $_POST["tv"] ?>" />
+        <input type="hidden" name="child-bed" value="<?php echo $_POST["child-bed"] ?>" />
+        <input type="hidden" name="balcony" value="<?php echo $_POST["balcony"] ?>" />
+        <input type="hidden" name="tv" value="<?php echo $_POST["tv"] ?>" />
         <?php
-        for ($i = 0; $i < $_POST["count"]; $i++) {
+        for ($i = 0; $i < $_POST["count"] - 1; $i++) {
             echo "<div>Osoba " . ($i + 1) . "</div>";
         ?>
-            <input type="name-<?php echo $i ?>">
-            <input type="surname-<?php echo $i ?>">
+            <input type="text" name="others[<?php echo $i ?>][name]">
+            <input type="text" name="others[<?php echo $i ?>][surname]">
             <hr>
         <?php
         }
         ?>
         <br><br>
-        <input type="submit" value="submit" name="submit">
+        <input type="submit" value="submit" name="submit" id="submit">
     </form>
+    <script>
+        const skipForm = <?php echo !$success || $_POST["count"] == "1" ? "true" : "false"; ?>;
+        const submitButton = document.getElementById("submit");
+        if (skipForm) {
+            submitButton.click();
+        }
+    </script>
 </body>
 
 </html>

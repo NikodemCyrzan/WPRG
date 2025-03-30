@@ -6,7 +6,8 @@ function validate_data()
     global $errors;
 
     if (!isset($_POST["submit"])) {
-        return false;
+        header("Location: ./index.php");
+        exit();
     }
 
     if (!isset($_POST["count"])) {
@@ -66,6 +67,16 @@ $success = validate_data();
         <div>Numer karty: <?php echo $_POST["card-id"] ?></div>
         <div>Adres email: <?php echo $_POST["email"] ?></div>
         <div>Data pobytu: <?php echo $_POST["date"] ?></div>
+        <hr>
+        <b>Pozostałe osoby</b>
+        <?php
+        for ($i = 0; $i < $_POST["count"] - 1; $i++) {
+        ?>
+            <div><?php echo $_POST["others"][$i]["name"]; ?> <?php echo $_POST["others"][$i]["surname"]; ?></div>
+        <?php
+        }
+        ?>
+        <!-- <br> -->
         <hr>
         <b>Dodatkowe opcje</b>
         <div>Łóżeczko dla dziecka: <?php echo isset($_POST["child-bed"]) ? "TAK" : "NIE" ?></div>
